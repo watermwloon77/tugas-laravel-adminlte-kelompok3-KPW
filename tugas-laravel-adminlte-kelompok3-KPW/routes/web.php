@@ -1,10 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
+
 
 Route::get('/', function () {
     return view('login');
-});
+})->name('login'); 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -23,3 +27,9 @@ Route::get('/form', function () {
 });
 
 
+Route::match(['get', 'post'], '/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
