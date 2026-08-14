@@ -21,3 +21,5 @@ Route::get('/laporan', function () {
 Route::get('/form', function () {
     return view('form');
 });
+
+
