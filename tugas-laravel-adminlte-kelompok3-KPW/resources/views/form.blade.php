@@ -4,150 +4,574 @@
 @section('page_heading', 'Form Input Data')
 
 @section('content')
+
 <style>
-    /* Styling khusus Tema Biru Tua & Biru Muda */
-    .card-theme {
+    /* ================================
+       TECHSTORE FORM THEME
+       Mengikuti tema Dashboard:
+       Orange + Dark Navy
+    ================================= */
+
+    .tech-form-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    /* Card utama */
+    .tech-form-card {
         border: none;
         border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 8px 25px rgba(31, 45, 61, 0.12);
+    }
+
+    /* Header */
+    .tech-form-header {
+        background: linear-gradient(90deg, #1f2d3d 0%, #263b50 100%);
+        color: #ffffff;
+        padding: 20px 24px;
+        border: none;
+    }
+
+    .tech-form-header .header-icon {
+        width: 44px;
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: #f59e0b;
+        color: #ffffff;
+        font-size: 19px;
+        margin-right: 12px;
+    }
+
+    .tech-form-header h5 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .tech-form-header p {
+        margin: 3px 0 0;
+        color: #cbd5e1;
+        font-size: 13px;
+    }
+
+    .tech-form-badge {
+        background: #f59e0b;
+        color: #ffffff;
+        font-weight: 700;
+        padding: 8px 13px;
+        border-radius: 7px;
+        font-size: 12px;
+    }
+
+    /* Body */
+    .tech-form-body {
+        padding: 28px;
         background: #ffffff;
     }
-    .card-header-blue {
-        background: linear-gradient(90deg, #1e3a8a 0%, #0284c7 100%);
-        color: #ffffff;
-        border-radius: 12px 12px 0 0 !important;
-        padding: 16px 20px;
+
+    /* Section */
+    .form-section-title {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #1f2d3d;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 22px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f1f5f9;
     }
-    .form-label {
-        font-weight: 600;
-        color: #1e3a8a;
+
+    .form-section-title i {
+        color: #f59e0b;
+    }
+
+    /* Label */
+    .tech-form-label {
+        display: block;
+        color: #1f2d3d;
         font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 8px;
     }
-    .form-control, .form-select {
-        border: 1.5px solid #cbd5e1;
-        border-radius: 8px;
-        padding: 10px 14px;
-        font-size: 14px;
+
+    .required-mark {
+        color: #ef4444;
     }
-    .form-control:focus, .form-select:focus {
-        border-color: #0284c7;
-        box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+
+    /* Input Group */
+    .tech-input-group {
+        display: flex;
+        width: 100%;
     }
-    .input-group-text {
-        background-color: #f1f5f9;
-        border: 1.5px solid #cbd5e1;
+
+    .tech-input-icon {
+        width: 48px;
+        min-width: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8fafc;
+        border: 1.5px solid #d7dee8;
         border-right: none;
-        color: #1e3a8a;
-        border-radius: 8px 0 0 8px;
+        color: #f59e0b;
+        border-radius: 9px 0 0 9px;
     }
-    .input-group .form-control {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+
+    .tech-form-control,
+    .tech-form-select {
+        width: 100%;
+        min-height: 46px;
+        border: 1.5px solid #d7dee8;
+        border-radius: 9px;
+        padding: 10px 14px;
+        color: #1f2937;
+        background: #ffffff;
+        font-size: 14px;
+        outline: none;
+        transition: all 0.2s ease;
     }
-    .btn-blue-primary {
-        background: linear-gradient(90deg, #0284c7 0%, #1d4ed8 100%);
-        border: none;
-        color: #ffffff;
-        font-weight: 600;
-        padding: 10px 24px;
+
+    .tech-input-group .tech-form-control {
+        border-radius: 0 9px 9px 0;
+    }
+
+    .tech-form-control::placeholder {
+        color: #94a3b8;
+    }
+
+    .tech-form-control:focus,
+    .tech-form-select:focus {
+        border-color: #f59e0b;
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.14);
+    }
+
+    .tech-form-select {
+        cursor: pointer;
+    }
+
+    /* Textarea */
+    textarea.tech-form-control {
+        min-height: 115px;
+        resize: vertical;
+    }
+
+    /* Hint */
+    .form-hint {
+        display: block;
+        margin-top: 6px;
+        font-size: 12px;
+        color: #94a3b8;
+    }
+
+    /* Info Box */
+    .form-info-box {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        border-left: 4px solid #f59e0b;
         border-radius: 8px;
-        transition: all 0.3s ease;
+        padding: 12px 14px;
+        margin-bottom: 24px;
+        color: #7c2d12;
+        font-size: 13px;
     }
-    .btn-blue-primary:hover {
-        background: linear-gradient(90deg, #0369a1 0%, #1e40af 100%);
-        color: #ffffff;
-        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+
+    .form-info-box i {
+        color: #f59e0b;
+        margin-top: 2px;
     }
-    .btn-reset-custom {
-        background-color: #f1f5f9;
-        border: 1px solid #cbd5e1;
-        color: #64748b;
-        font-weight: 600;
+
+    /* Footer */
+    .tech-form-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+        padding-top: 22px;
+        margin-top: 5px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    /* Reset */
+    .btn-tech-reset {
+        border: 1.5px solid #d1d5db;
+        background: #ffffff;
+        color: #475569;
+        font-weight: 700;
         padding: 10px 20px;
         border-radius: 8px;
+        transition: all 0.2s ease;
     }
-    .btn-reset-custom:hover {
-        background-color: #e2e8f0;
-        color: #334155;
+
+    .btn-tech-reset:hover {
+        background: #f1f5f9;
+        border-color: #94a3b8;
+        color: #1f2937;
+    }
+
+    /* Save */
+    .btn-tech-save {
+        border: none;
+        background: linear-gradient(90deg, #f59e0b 0%, #f97316 100%);
+        color: #ffffff;
+        font-weight: 700;
+        padding: 11px 23px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+        transition: all 0.2s ease;
+    }
+
+    .btn-tech-save:hover {
+        background: linear-gradient(90deg, #d97706 0%, #ea580c 100%);
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .tech-form-body {
+            padding: 20px;
+        }
+
+        .tech-form-header {
+            padding: 17px 18px;
+        }
+
+        .tech-form-badge {
+            display: none;
+        }
+
+        .tech-form-footer {
+            flex-direction: column-reverse;
+            align-items: stretch;
+        }
+
+        .btn-tech-reset,
+        .btn-tech-save {
+            width: 100%;
+        }
     }
 </style>
 
-<div class="row justify-content-center">
-    <div class="col-lg-10">
-        <div class="card card-theme">
-            <!-- Header Card dengan Gradasi Biru -->
-            <div class="card-header card-header-blue d-flex align-items-center justify-content-between">
-                <h5 class="m-0 fw-bold fs-6">
-                    <i class="fa-solid fa-user-plus me-2 text-info"></i>Form Tambah Staff / Anggota TechStore
-                </h5>
-                <span class="badge bg-white text-dark opacity-75">TechStore Management</span>
+
+<div class="tech-form-wrapper">
+
+    <div class="card tech-form-card">
+
+        {{-- HEADER --}}
+        <div class="tech-form-header d-flex align-items-center justify-content-between">
+
+            <div class="d-flex align-items-center">
+
+                <div class="header-icon">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+
+                <div>
+                    <h5>Tambah Staff / Anggota TechStore</h5>
+                    <p>Masukkan informasi anggota tim dengan lengkap</p>
+                </div>
+
             </div>
 
-            <!-- Body Card Form -->
-            <div class="card-body p-4">
-                <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Data berhasil disimpan!');">
-                    
-                    <div class="row">
-                        <!-- Nama Lengkap -->
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Nama Lengkap</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="Masukkan nama lengkap staff..." required>
-                            </div>
-                        </div>
+            <span class="tech-form-badge">
+                <i class="fa-solid fa-users me-1"></i>
+                TechStore Management
+            </span>
 
-                        <!-- Email / Username -->
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Email / Username Staff</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-                                <input type="email" class="form-control" placeholder="contoh: staff@techstore.com" required>
-                            </div>
-                        </div>
-
-                        <!-- Peran / Role -->
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Peran / Jabatan (Role)</label>
-                            <select class="form-select" required>
-                                <option value="" selected disabled>-- Pilih Role --</option>
-                                <option value="admin">Administrator Toko</option>
-                                <option value="inventory">Staff Inventaris Gadget</option>
-                                <option value="kasir">Kasir / Sales Staff</option>
-                                <option value="manager">Manager Operasional</option>
-                            </select>
-                        </div>
-
-                        <!-- Jenis Kelamin -->
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Jenis Kelamin</label>
-                            <select class="form-select" required>
-                                <option value="" selected disabled>-- Pilih Gender --</option>
-                                <option value="L">Laki-laki</option>
-                                <option value="P">Perempuan</option>
-                            </select>
-                        </div>
-
-                        <!-- Catatan / Alamat -->
-                        <div class="col-md-12 mb-4">
-                            <label class="form-label">Catatan / Alamat Rumah</label>
-                            <textarea class="form-control" rows="3" placeholder="Masukkan detail catatan staff atau alamat lengkap..."></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Footer Action Buttons -->
-                    <div class="d-flex justify-content-end gap-2 pt-3 border-top">
-                        <button type="reset" class="btn btn-reset-custom">
-                            <i class="fa-solid fa-rotate-left me-1"></i> Reset
-                        </button>
-                        <button type="submit" class="btn btn-blue-primary">
-                            <i class="fa-solid fa-floppy-disk me-1"></i> Simpan Data
-                        </button>
-                    </div>
-
-                </form>
-            </div>
         </div>
+
+
+        {{-- BODY --}}
+        <div class="tech-form-body">
+
+            {{-- INFORMASI --}}
+            <div class="form-info-box">
+                <i class="fa-solid fa-circle-info"></i>
+
+                <div>
+                    <strong>Informasi Form</strong><br>
+                    Silakan isi data staff dengan benar. Form ini masih dalam
+                    tahap tampilan dan <strong>belum terhubung ke database</strong>.
+                </div>
+            </div>
+
+
+            <form
+                action="#"
+                method="POST"
+                onsubmit="event.preventDefault(); showSuccessMessage();"
+            >
+
+                {{-- DATA PRIBADI --}}
+                <div class="form-section-title">
+                    <i class="fa-solid fa-user"></i>
+                    Data Pribadi
+                </div>
+
+
+                <div class="row">
+
+                    {{-- Nama --}}
+                    <div class="col-md-6 mb-4">
+
+                        <label class="tech-form-label">
+                            Nama Lengkap
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <div class="tech-input-group">
+
+                            <span class="tech-input-icon">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                class="tech-form-control"
+                                placeholder="Masukkan nama lengkap..."
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- Gender --}}
+                    <div class="col-md-6 mb-4">
+
+                        <label class="tech-form-label">
+                            Jenis Kelamin
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <select class="tech-form-select" required>
+
+                            <option value="" selected disabled>
+                                -- Pilih Jenis Kelamin --
+                            </option>
+
+                            <option value="L">
+                                Laki-laki
+                            </option>
+
+                            <option value="P">
+                                Perempuan
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    {{-- Email --}}
+                    <div class="col-md-6 mb-4">
+
+                        <label class="tech-form-label">
+                            Email / Username
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <div class="tech-input-group">
+
+                            <span class="tech-input-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+
+                            <input
+                                type="email"
+                                class="tech-form-control"
+                                placeholder="staff@techstore.com"
+                                required
+                            >
+
+                        </div>
+
+                        <span class="form-hint">
+                            Gunakan email yang masih aktif.
+                        </span>
+
+                    </div>
+
+
+                    {{-- Nomor HP --}}
+                    <div class="col-md-6 mb-4">
+
+                        <label class="tech-form-label">
+                            Nomor HP
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <div class="tech-input-group">
+
+                            <span class="tech-input-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+
+                            <input
+                                type="tel"
+                                class="tech-form-control"
+                                placeholder="08xxxxxxxxxx"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {{-- DATA PEKERJAAN --}}
+                <div class="form-section-title mt-2">
+                    <i class="fa-solid fa-briefcase"></i>
+                    Informasi Pekerjaan
+                </div>
+
+
+                <div class="row">
+
+                    {{-- Role --}}
+                    <div class="col-md-6 mb-4">
+
+                        <label class="tech-form-label">
+                            Peran / Jabatan
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <select class="tech-form-select" required>
+
+                            <option value="" selected disabled>
+                                -- Pilih Role --
+                            </option>
+
+                            <option value="admin">
+                                Administrator Toko
+                            </option>
+
+                            <option value="inventory">
+                                Staff Inventaris Gadget
+                            </option>
+
+                            <option value="kasir">
+                                Kasir / Sales Staff
+                            </option>
+
+                            <option value="manager">
+                                Manager Operasional
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    {{-- Status --}}
+                    <div class="col-md-6 mb-4">
+
+                        <label class="tech-form-label">
+                            Status Staff
+                            <span class="required-mark">*</span>
+                        </label>
+
+                        <select class="tech-form-select" required>
+
+                            <option value="" selected disabled>
+                                -- Pilih Status --
+                            </option>
+
+                            <option value="aktif">
+                                Aktif
+                            </option>
+
+                            <option value="nonaktif">
+                                Tidak Aktif
+                            </option>
+
+                            <option value="magang">
+                                Magang
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                {{-- ALAMAT --}}
+                <div class="form-section-title mt-2">
+                    <i class="fa-solid fa-location-dot"></i>
+                    Informasi Tambahan
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-md-12 mb-4">
+
+                        <label class="tech-form-label">
+                            Alamat / Catatan
+                        </label>
+
+                        <textarea
+                            class="tech-form-control"
+                            rows="4"
+                            placeholder="Masukkan alamat atau catatan tambahan..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                {{-- BUTTON --}}
+                <div class="tech-form-footer">
+
+                    <button
+                        type="reset"
+                        class="btn btn-tech-reset"
+                    >
+                        <i class="fa-solid fa-rotate-left me-1"></i>
+                        Reset
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-tech-save"
+                    >
+                        <i class="fa-solid fa-floppy-disk me-1"></i>
+                        Simpan Data
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
+
 </div>
+
+
+<script>
+    function showSuccessMessage() {
+        alert(
+            "Form berhasil diisi!\\n\\n" +
+            "Data belum disimpan ke database karena form ini masih dalam tahap tampilan."
+        );
+    }
+</script>
+
 @endsection
