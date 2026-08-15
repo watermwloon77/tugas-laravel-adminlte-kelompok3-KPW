@@ -12,8 +12,8 @@
 
     <style>
         body {
-            /* Background Gradasi Soft Biru Tua ke Biru Muda */
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%);
+            /* Background Gradasi Soft Dark Amber ke Warm Gold */
+            background: linear-gradient(135deg, #18181b 0%, #27272a 40%, #78350f 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
         }
@@ -25,16 +25,16 @@
             background: #ffffff;
             border: none;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
         }
 
-        /* Top Bar Header Gradasi Biru Tua - Biru Muda */
+        /* Top Bar Header Gradasi Warm Amber - Gold */
         .card-header-custom {
-            background: linear-gradient(90deg, #1e3a8a 0%, #0284c7 100%);
+            background: linear-gradient(90deg, #1c1917 0%, #78350f 100%);
             padding: 30px 20px;
             text-align: center;
             color: #ffffff;
-            border-bottom: 4px solid #38bdf8; /* Accent Line Biru Cerah */
+            border-bottom: 4px solid #f59e0b; /* Accent Line Amber Gold */
         }
 
         .brand-title {
@@ -52,21 +52,21 @@
         }
 
         .form-control:focus {
-            border-color: #0284c7;
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
         }
 
         .input-group-text {
             border-radius: 0 8px 8px 0;
-            background-color: #f1f5f9;
+            background-color: #fef3c7;
             border: 1.5px solid #cbd5e1;
             border-left: none;
-            color: #1e3a8a; /* Warna Ikon Biru Tua */
+            color: #b45309; /* Warna Ikon Amber / Cokelat Emas */
         }
 
-        /* Tombol Utama Gradasi Biru */
-        .btn-blue-gradient {
-            background: linear-gradient(90deg, #0284c7 0%, #1d4ed8 100%);
+        /* Tombol Utama Gradasi Amber / Gold */
+        .btn-amber-gradient {
+            background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
             border: none;
             border-radius: 8px;
             color: #ffffff;
@@ -74,30 +74,30 @@
             padding: 12px;
             font-size: 15px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
         }
 
-        .btn-blue-gradient:hover {
-            background: linear-gradient(90deg, #0369a1 0%, #1e40af 100%);
+        .btn-amber-gradient:hover {
+            background: linear-gradient(90deg, #d97706 0%, #b45309 100%);
             transform: translateY(-1px);
-            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.4);
+            box-shadow: 0 6px 15px rgba(217, 119, 6, 0.45);
             color: #ffffff;
         }
 
         .form-check-input:checked {
-            background-color: #0284c7;
-            border-color: #0284c7;
+            background-color: #f59e0b;
+            border-color: #f59e0b;
         }
 
         .link-register {
-            color: #0284c7;
+            color: #d97706;
             font-weight: 600;
             text-decoration: none;
             transition: color 0.2s;
         }
 
         .link-register:hover {
-            color: #1e3a8a;
+            color: #78350f;
             text-decoration: underline;
         }
     </style>
@@ -105,12 +105,12 @@
 <body class="d-flex align-items-center justify-content-center p-3">
 
     <div class="card login-card">
-        <!-- Header Card (Biru Tua ke Biru Muda) -->
+        <!-- Header Card (Amber & Gold) -->
         <div class="card-header-custom">
             <div class="mb-2">
-                <i class="fa-solid fa-layer-group fs-1 text-info"></i>
+                <i class="fa-solid fa-layer-group fs-1 text-warning"></i>
             </div>
-            <h1 class="brand-title">Admin<span style="color: #38bdf8;">Bluesky</span></h1>
+            <h1 class="brand-title">Admin<span style="color: #f59e0b;">Amber</span></h1>
             <small class="text-light opacity-75">Sistem Informasi Kelompok 3</small>
         </div>
 
@@ -151,7 +151,7 @@
                 </div>
 
                 <!-- Tombol Acceder / Login -->
-                <button type="submit" class="btn btn-blue-gradient w-100 mb-3">
+                <button type="submit" class="btn btn-amber-gradient w-100 mb-3">
                     Acceder / Sign In <i class="fa-solid fa-right-to-bracket ms-2"></i>
                 </button>
             </form>
