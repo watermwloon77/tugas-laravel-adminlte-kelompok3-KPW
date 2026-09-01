@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\CategoryController;
 
 
 Route::get('/', function () {
@@ -33,3 +33,5 @@ Route::match(['get', 'post'], '/logout', function (Request $request) {
     $request->session()->regenerateToken();
     return redirect('/');
 })->name('logout');
+
+Route::resource('category', CategoryController::class);
