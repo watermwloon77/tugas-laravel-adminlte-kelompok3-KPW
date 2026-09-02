@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -12,10 +13,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-});
-
-Route::get('/users', function () {
-    return view('users');
 });
 
 Route::get('/laporan', function () {
@@ -35,3 +32,4 @@ Route::match(['get', 'post'], '/logout', function (Request $request) {
 })->name('logout');
 
 Route::resource('category', CategoryController::class);
+Route::resource('users', UserController::class);
