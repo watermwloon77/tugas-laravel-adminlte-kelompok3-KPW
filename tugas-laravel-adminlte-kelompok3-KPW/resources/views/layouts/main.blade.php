@@ -115,6 +115,20 @@
                                 <p>Form Input</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('products.index') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-box text-warning"></i>
+                                <p>Data Produk</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('penjualan.create') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-cash-register text-warning"></i>
+                                <p>Kasir / Transaksi</p>
+                            </a>
+                        </li>
                         
                         <li class="nav-header text-uppercase text-secondary mt-3 ms-3" style="font-size: 0.75rem;">Akses</li>
                         <li class="nav-item">
