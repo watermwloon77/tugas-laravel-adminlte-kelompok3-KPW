@@ -124,12 +124,15 @@
                                 <p>Kasir / Transaksi</p>
                             </a>
                         </li>
+<<<<<<< HEAD
                         <li class="nav-item">
                             <a href="{{ route('laporan.index') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-file-invoice-dollar text-success"></i>
                                 <p>Laporan Penjualan</p>
                            </a>
                         </li>
+=======
+>>>>>>> 00bec4664b14339f121bfab66605c11eac0dca44
                         
                         <li class="nav-header text-uppercase text-secondary mt-3 ms-3" style="font-size: 0.75rem;">Akses</li>
                         <li class="nav-item">

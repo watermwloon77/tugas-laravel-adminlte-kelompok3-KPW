@@ -9,6 +9,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PenjualanController;
+
 Route::get('/', function () {
     return view('login');
 })->name('login'); 
@@ -33,6 +37,7 @@ Route::match(['get', 'post'], '/logout', function (Request $request) {
     return redirect('/');
 })->name('logout');
 
+Route::resource('category', CategoryController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('users', UserController::class);
 Route::resource('products', ProductController::class);
