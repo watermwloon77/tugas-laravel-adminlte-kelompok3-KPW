@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\LaporanController;
 
 Route::get('/', function () {
     return view('login');
@@ -37,3 +38,5 @@ Route::resource('users', UserController::class);
 Route::resource('products', ProductController::class);
 Route::get('/transaksi', [PenjualanController::class, 'create'])->name('penjualan.create');
 Route::post('/transaksi', [PenjualanController::class, 'store'])->name('penjualan.store');
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+Route::get('/laporan/{id}', [LaporanController::class, 'show'])->name('laporan.show');

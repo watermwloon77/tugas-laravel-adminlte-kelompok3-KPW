@@ -103,12 +103,7 @@
                                 <p>Data User / Profile</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/laporan') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-table text-warning"></i>
-                                <p>Laporan Data</p>
-                            </a>
-                        </li>
+                     
                         <li class="nav-item">
                             <a href="{{ url('/form') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-pen-to-square text-warning"></i>
@@ -128,6 +123,12 @@
                                 <i class="nav-icon fa-solid fa-cash-register text-warning"></i>
                                 <p>Kasir / Transaksi</p>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('laporan.index') }}" class="nav-link">
+                                <i class="nav-icon fa-solid fa-file-invoice-dollar text-success"></i>
+                                <p>Laporan Penjualan</p>
+                           </a>
                         </li>
                         
                         <li class="nav-header text-uppercase text-secondary mt-3 ms-3" style="font-size: 0.75rem;">Akses</li>
