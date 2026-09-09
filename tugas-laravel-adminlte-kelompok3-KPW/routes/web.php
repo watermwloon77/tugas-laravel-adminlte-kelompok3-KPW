@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoryController;
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PenjualanController;
 
 Route::get('/', function () {
     return view('login');
@@ -12,10 +15,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-});
-
-Route::get('/users', function () {
-    return view('users');
 });
 
 Route::get('/laporan', function () {
@@ -35,3 +34,8 @@ Route::match(['get', 'post'], '/logout', function (Request $request) {
 })->name('logout');
 
 Route::resource('category', CategoryController::class);
+Route::resource('category', CategoryController::class);
+Route::resource('users', UserController::class);
+Route::resource('products', ProductController::class);
+Route::get('/transaksi', [PenjualanController::class, 'create'])->name('penjualan.create');
+Route::post('/transaksi', [PenjualanController::class, 'store'])->name('penjualan.store');
