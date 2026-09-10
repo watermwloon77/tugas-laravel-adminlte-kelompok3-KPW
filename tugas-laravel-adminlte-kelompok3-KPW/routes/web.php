@@ -8,18 +8,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\DashboardController;
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PenjualanController;
 
 Route::get('/', function () {
     return view('login');
 })->name('login'); 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
 
 Route::get('/laporan', function () {
     return view('laporan');
@@ -37,7 +32,7 @@ Route::match(['get', 'post'], '/logout', function (Request $request) {
     return redirect('/');
 })->name('logout');
 
-Route::resource('category', CategoryController::class);
+
 Route::resource('category', CategoryController::class);
 Route::resource('users', UserController::class);
 Route::resource('products', ProductController::class);
@@ -45,3 +40,4 @@ Route::get('/transaksi', [PenjualanController::class, 'create'])->name('penjuala
 Route::post('/transaksi', [PenjualanController::class, 'store'])->name('penjualan.store');
 Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
 Route::get('/laporan/{id}', [LaporanController::class, 'show'])->name('laporan.show');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

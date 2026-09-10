@@ -72,7 +72,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <span class="badge bg-dark text-warning p-2 me-2">
-                            <i class="fa-solid fa-code-branch me-1"></i> Maintainer: Nabila
+                            <i class="fa-solid fa-code-branch me-1"></i> Maintainer: Iqbal
                         </span>
                     </li>
                 </ul>
@@ -91,19 +91,25 @@
             <div class="sidebar-wrapper">
                 <nav class="mt-2">
                     <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu">
+                        {{-- Dashboard (Bisa diakses Admin & Kasir) --}}
                         <li class="nav-item">
                             <a href="{{ url('/dashboard') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-gauge-high text-warning"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
+
+                        {{-- KHUSUS ADMIN (Data User) --}}
+                        @if(auth()->check() && auth()->user()->role && auth()->user()->role->name === 'admin')
                         <li class="nav-item">
                             <a href="{{ url('/users') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-users text-warning"></i>
                                 <p>Data User / Profile</p>
                             </a>
                         </li>
-                     
+                        @endif
+
+                        {{-- Form Input (Bisa diakses Admin & Kasir) --}}
                         <li class="nav-item">
                             <a href="{{ url('/form') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-pen-to-square text-warning"></i>
@@ -111,6 +117,7 @@
                             </a>
                         </li>
 
+                        {{-- Data Produk (Bisa diakses Admin & Kasir) --}}
                         <li class="nav-item">
                             <a href="{{ route('products.index') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-box text-warning"></i>
@@ -118,21 +125,23 @@
                             </a>
                         </li>
 
+                        {{-- Kasir / Transaksi (Bisa diakses Admin & Kasir) --}}
                         <li class="nav-item">
                             <a href="{{ route('penjualan.create') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-cash-register text-warning"></i>
                                 <p>Kasir / Transaksi</p>
                             </a>
                         </li>
-<<<<<<< HEAD
+
+                        {{-- KHUSUS ADMIN (Laporan Penjualan) --}}
+                        @if(auth()->check() && auth()->user()->role && auth()->user()->role->name === 'admin')
                         <li class="nav-item">
                             <a href="{{ route('laporan.index') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-file-invoice-dollar text-success"></i>
                                 <p>Laporan Penjualan</p>
-                           </a>
+                            </a>
                         </li>
-=======
->>>>>>> 00bec4664b14339f121bfab66605c11eac0dca44
+                        @endif
                         
                         <li class="nav-header text-uppercase text-secondary mt-3 ms-3" style="font-size: 0.75rem;">Akses</li>
                         <li class="nav-item">
