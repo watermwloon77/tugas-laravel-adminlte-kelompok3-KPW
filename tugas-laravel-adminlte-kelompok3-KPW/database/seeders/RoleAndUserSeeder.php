@@ -12,15 +12,36 @@ class RoleAndUserSeeder extends Seeder
     public function run(): void
     {
         // 1. Buat Data Role
-        $adminRole = Role::create(['name' => 'admin']);
-        $kasirRole = Role::create(['name' => 'kasir']);
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $kasirRole = Role::firstOrCreate(['name' => 'kasir']);
+        $ownerRole = Role::firstOrCreate(['name' => 'owner']);
 
         // 2. Buat Akun Admin Default untuk Login
-        User::create([
-            'name'     => 'Administrator',
-            'email'    => 'admin@gmail.com',
-            'password' => Hash::make('password123'),
-            'role_id'  => $adminRole->id,
-        ]);
+        User::firstOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'name'     => 'Administrator Toko',
+                'password' => Hash::make('password'),
+                'role_id'  => $adminRole->id,
+            ]
+        );
+
+        User::firstOrCreate(
+            ['email' => 'kasir@gmail.com'],
+            [
+                'name'     => 'Kasir Toko Buket',
+                'password' => Hash::make('password'),
+                'role_id'  => $kasirRole->id,
+            ]
+        );
+
+        User::firstOrCreate(
+            ['email' => 'owner@gmail.com'],
+            [
+                'name'     => 'Owner / Pemilik Toko',
+                'password' => Hash::make('password'),
+                'role_id'  => $ownerRole->id,
+            ]
+        );
     }
 }

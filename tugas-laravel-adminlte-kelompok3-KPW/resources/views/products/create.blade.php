@@ -1,56 +1,68 @@
 @extends('layouts.main')
 
+@section('page_heading', 'Tambah Produk Baru')
+
 @section('content')
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Tambah Produk Baru</h3>
-        </div>
-        <div class="card-body">
-            <form action="{{ route('products.store') }}" method="POST">
-                @csrf
-                <div class="form-group mb-3">
-                    <label>Kode Produk</label>
-                    <input type="text" name="kode_produk" class="form-control @error('kode_produk') is-invalid @enderror" value="{{ old('kode_produk') }}" placeholder="Contoh: PRD001" required>
-                    @error('kode_produk')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                </div>
+<div class="card card-primary shadow-sm" style="max-width: 720px;">
+    <div class="card-header">
+        <h5 class="card-title mb-0 fw-bold">
+            <i class="fa-solid fa-plus me-1"></i> Form Tambah Produk / Buket
+        </h5>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('products.store') }}" method="POST">
+            @csrf
 
-                <div class="form-group mb-3">
-                    <label>Nama Produk</label>
-                    <input type="text" name="nama_produk" class="form-control" value="{{ old('nama_produk') }}" required>
-                </div>
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Kode Produk</label>
+                <input type="text" name="kode_produk" class="form-control @error('kode_produk') is-invalid @enderror" value="{{ old('kode_produk') }}" placeholder="Contoh: PRD-001" required>
+                @error('kode_produk')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
 
-                <div class="form-group mb-3">
-                    <label>Kategori</label>
-                   <select name="category_id" class="form-control" required>
-                        <option value="">-- Pilih Kategori --</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('category_id', $product->category_id ?? '') == $category->id ? 'selected' : '' }}>
-                                {{ $category->nama }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Nama Produk</label>
+                <input type="text" name="nama_produk" class="form-control @error('nama_produk') is-invalid @enderror" value="{{ old('nama_produk') }}" placeholder="Contoh: Buket Snack & Cokelat" required>
+                @error('nama_produk')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
 
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label>Harga Beli</label>
-                        <input type="number" name="harga_beli" class="form-control" value="{{ old('harga_beli') }}" required>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label>Harga Jual</label>
-                        <input type="number" name="harga_jual" class="form-control" value="{{ old('harga_jual') }}" required>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label>Stok</label>
-                        <input type="number" name="stok" class="form-control" value="{{ old('stok') }}" required>
-                    </div>
-                </div>
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Kategori</label>
+                <select name="category_id" class="form-select @error('category_id') is-invalid @enderror" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->nama }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('category_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
 
-                <button type="submit" class="btn btn-success">Simpan Produk</button>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Harga Beli</label>
+                    <input type="number" name="harga_beli" class="form-control @error('harga_beli') is-invalid @enderror" value="{{ old('harga_beli') }}" required>
+                    @error('harga_beli')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Harga Jual</label>
+                    <input type="number" name="harga_jual" class="form-control @error('harga_jual') is-invalid @enderror" value="{{ old('harga_jual') }}" required>
+                    @error('harga_jual')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Stok</label>
+                    <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror" value="{{ old('stok') }}" required>
+                    @error('stok')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary fw-bold">
+                    <i class="fa-solid fa-floppy-disk me-1"></i> Simpan Produk
+                </button>
                 <a href="{{ route('products.index') }}" class="btn btn-secondary">Batal</a>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

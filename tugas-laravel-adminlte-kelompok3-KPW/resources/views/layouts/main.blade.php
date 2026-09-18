@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-bs-theme="light">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Project Kelompok 3')</title>
+    <title>@yield('title', 'Kasir POS Toko Buket')</title>
 
     <!-- AdminLTE v4 CSS -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.css') }}">
-    
+
     <!-- FontAwesome (Ikon) via CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
-    
-    <!-- Custom Style Tema Kuning & Fix Layout -->
+
     <style>
         html, body {
             height: auto !important;
@@ -30,20 +29,17 @@
             overflow: visible !important;
         }
 
-        /* Custom Styling Tema Kuning Cerah */
-        .bg-warning-custom {
-            background-color: #ffc107 !important;
-            color: #212529 !important;
-        }
-
-        .sidebar-brand {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-sidebar .nav-link.active {
-            background-color: #ffc107 !important;
-            color: #000 !important;
+        /* Menu aktif di sidebar memakai warna primary (biru) agar kontras */
+        .nav-sidebar .nav-link.active,
+        .sidebar-menu .nav-link.active {
+            background-color: var(--bs-primary) !important;
+            color: #fff !important;
             font-weight: bold;
+        }
+
+        .nav-sidebar .nav-link:hover,
+        .sidebar-menu .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.08);
         }
     </style>
 
@@ -52,117 +48,41 @@
 <body class="sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">
 
-        <!-- 1. NAVBAR (Header Atas - Tema Kuning) -->
-        <nav class="app-header navbar navbar-expand bg-warning-custom shadow-sm">
+        <!-- 1. NAVBAR (Header Atas) -->
+        <nav class="app-header navbar navbar-expand bg-dark shadow-sm" data-bs-theme="dark">
             <div class="container-fluid">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-dark fw-bold" data-lte-toggle="sidebar" href="#" role="button">
+                        <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
                             <i class="fa-solid fa-bars"></i>
                         </a>
                     </li>
                     <li class="nav-item d-none d-md-block">
-                        <a href="#" class="nav-link text-dark fw-semibold">
-                            <i class="fa-solid fa-house me-1"></i> Beranda Admin
-                        </a>
+                        <span class="nav-link fw-semibold">
+                            <i class="fa-solid fa-store me-1 text-primary"></i> Kasir POS Toko Buket
+                        </span>
                     </li>
                 </ul>
 
-                <!-- Profil Singkat / Badge Nabila -->
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Tombol Mode Gelap / Terang -->
+                    <li class="nav-item me-2">
+                        <button type="button" id="theme-toggle" class="btn btn-sm btn-outline-light" title="Ganti mode gelap/terang">
+                            <i id="icon-sun" class="fa-solid fa-sun"></i>
+                            <i id="icon-moon" class="fa-solid fa-moon d-none"></i>
+                        </button>
+                    </li>
                     <li class="nav-item">
-                        <span class="badge bg-dark text-warning p-2 me-2">
-                            <i class="fa-solid fa-code-branch me-1"></i> Maintainer: Iqbal
+                        <span class="badge bg-primary text-white p-2 me-2">
+                            <i class="fa-solid fa-user me-1"></i> {{ auth()->user()->name ?? 'Guest' }} ({{ ucfirst(optional(auth()->user()->role)->name ?? 'User') }})
                         </span>
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <!-- 2. SIDEBAR (Navigasi Kiri) -->
-        <aside class="app-sidebar bg-dark shadow" data-bs-theme="dark">
-            <div class="sidebar-brand">
-                <a href="#" class="brand-link">
-                    <span class="brand-text text-warning fw-bold">
-                        <i class="fa-solid fa-lemon me-1"></i> Kelompok 3 Admin
-                    </span>
-                </a>
-            </div>
-            <div class="sidebar-wrapper">
-                <nav class="mt-2">
-                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu">
-                        {{-- Dashboard (Bisa diakses Admin & Kasir) --}}
-                        <li class="nav-item">
-                            <a href="{{ url('/dashboard') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-gauge-high text-warning"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-
-                        {{-- KHUSUS ADMIN (Data User) --}}
-                        @if(auth()->check() && auth()->user()->role && auth()->user()->role->name === 'admin')
-                        <li class="nav-item">
-                            <a href="{{ url('/users') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-users text-warning"></i>
-                                <p>Data User / Profile</p>
-                            </a>
-                        </li>
-                        @endif
-
-                        {{-- Form Input (Bisa diakses Admin & Kasir) --}}
-                        <li class="nav-item">
-                            <a href="{{ url('/form') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-pen-to-square text-warning"></i>
-                                <p>Form Input</p>
-                            </a>
-                        </li>
-
-<<<<<<< HEAD
-=======
-                        {{-- Data Produk (Bisa diakses Admin & Kasir) --}}
->>>>>>> 6c9686e34932432304104fb7c754ca7fb42ad2e0
-                        <li class="nav-item">
-                            <a href="{{ route('products.index') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-box text-warning"></i>
-                                <p>Data Produk</p>
-                            </a>
-                        </li>
-
-<<<<<<< HEAD
-=======
-                        {{-- Kasir / Transaksi (Bisa diakses Admin & Kasir) --}}
->>>>>>> 6c9686e34932432304104fb7c754ca7fb42ad2e0
-                        <li class="nav-item">
-                            <a href="{{ route('penjualan.create') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-cash-register text-warning"></i>
-                                <p>Kasir / Transaksi</p>
-                            </a>
-                        </li>
-<<<<<<< HEAD
-=======
-
-                        {{-- KHUSUS ADMIN (Laporan Penjualan) --}}
-                        @if(auth()->check() && auth()->user()->role && auth()->user()->role->name === 'admin')
-                        <li class="nav-item">
-                            <a href="{{ route('laporan.index') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-file-invoice-dollar text-success"></i>
-                                <p>Laporan Penjualan</p>
-                            </a>
-                        </li>
-                        @endif
->>>>>>> 6c9686e34932432304104fb7c754ca7fb42ad2e0
-                        
-                        <li class="nav-header text-uppercase text-secondary mt-3 ms-3" style="font-size: 0.75rem;">Akses</li>
-                        <li class="nav-item">
-                            <a href="{{ url('/') }}" class="nav-link text-danger">
-                                <i class="nav-icon fa-solid fa-right-from-bracket"></i>
-                                <p>Logout</p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
+        <!-- 2. SIDEBAR -->
+        @include('layouts.sidebar')
 
         <!-- 3. KONTEN UTAMA -->
         <main class="app-main">
@@ -170,36 +90,91 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h3 class="mb-0 text-dark fw-bold">
+                            <h3 class="mb-0 fw-bold">
                                 @yield('page_heading', 'Dashboard')
                             </h3>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="app-content">
                 <div class="container-fluid">
+
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                            <i class="fa-solid fa-circle-check me-1"></i> {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+                            <i class="fa-solid fa-circle-exclamation me-1"></i> {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation me-1"></i>
+                            <strong>Terjadi kesalahan pada form:</strong>
+                            <ul class="mb-0 mt-1 ps-3">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    @endif
+
                     @yield('content')
                 </div>
             </div>
         </main>
 
         <!-- 4. FOOTER -->
-        <footer class="app-footer bg-light border-top">
+        <footer class="app-footer border-top p-3">
             <div class="float-end d-none d-sm-inline">
                 <b>Tugas KPW</b> 2026
             </div>
-            <strong>Copyright &copy; 2026 <a href="#" class="text-warning text-decoration-none fw-bold">Kelompok 3</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2026 <a href="#" class="text-primary text-decoration-none fw-bold">Kelompok 3</a>.</strong> All rights reserved.
         </footer>
 
     </div>
 
-    <!-- Bootstrap 5 Bundle JS -->
+    <!-- JS Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE v4 JS -->
     <script src="{{ asset('adminlte/dist/js/adminlte.js') }}"></script>
-    
+
+    <script>
+        // ====== Mode Gelap / Terang ======
+        (function () {
+            var root = document.documentElement;
+            var sun = document.getElementById('icon-sun');
+            var moon = document.getElementById('icon-moon');
+
+            function apply(theme) {
+                root.setAttribute('data-bs-theme', theme);
+                localStorage.setItem('lte-theme', theme);
+                if (theme === 'dark') {
+                    moon.classList.remove('d-none');
+                    sun.classList.add('d-none');
+                } else {
+                    moon.classList.add('d-none');
+                    sun.classList.remove('d-none');
+                }
+            }
+
+            apply(localStorage.getItem('lte-theme') || 'light');
+
+            document.getElementById('theme-toggle').addEventListener('click', function () {
+                var current = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+                apply(current);
+            });
+        })();
+    </script>
+
     @stack('js')
 </body>
 </html>

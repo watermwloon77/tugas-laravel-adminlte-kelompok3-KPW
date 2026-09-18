@@ -3,9 +3,47 @@
 @section('page_heading', 'Laporan Penjualan & Laba Rugi')
 
 @section('content')
+
+<!-- Form Filter Tanggal & Tombol Cetak -->
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <form method="GET" action="{{ route('laporan.index') }}" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Dari Tanggal</label>
+                <input type="date" name="tgl_mulai" class="form-control" value="{{ request('tgl_mulai') }}">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Sampai Tanggal</label>
+                <input type="date" name="tgl_selesai" class="form-control" value="{{ request('tgl_selesai') }}">
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary fw-bold flex-fill">
+                    <i class="fa-solid fa-filter me-1"></i> Filter
+                </button>
+                <button type="button" onclick="window.print()" class="btn btn-secondary">
+                    <i class="fa-solid fa-print me-1"></i> Cetak
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Card Summary Ringkasan Keuangan -->
 <div class="row mb-4">
-    <div class="col-md-6">
+    <div class="col-md-4">
+        <div class="card bg-dark text-white shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase fw-bold mb-1">Total Transaksi</h6>
+                        <h2 class="mb-0 fw-bold">{{ $totalTransaksi }}</h2>
+                    </div>
+                    <i class="fa-solid fa-receipt fa-3x opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
         <div class="card bg-success text-white shadow-sm">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
@@ -18,7 +56,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="card bg-primary text-white shadow-sm">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
@@ -62,7 +100,7 @@
                             <td>Rp {{ number_format($p->bayar, 0, ',', '.') }}</td>
                             <td>Rp {{ number_format($p->kembalian, 0, ',', '.') }}</td>
                             <td class="text-center">
-                                <a href="{{ route('laporan.show', $p->id) }}" class="btn btn-sm btn-info text-white">
+                                <a href="{{ route('laporan.show', $p->id) }}" class="btn btn-sm btn-info">
                                     <i class="fa-solid fa-eye me-1"></i> Detail Nota
                                 </a>
                             </td>

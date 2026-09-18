@@ -314,11 +314,6 @@ return [
         'url'  => 'laporan',
         'icon' => 'fas fa-table text-warning',
     ],
-    [
-        'text' => 'Form Input',
-        'url'  => 'form',
-        'icon' => 'fas fa-edit text-warning',
-    ],
     ['header' => 'AKSES'],
     [
         'text' => 'Logout',

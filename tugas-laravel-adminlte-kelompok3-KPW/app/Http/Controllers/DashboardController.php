@@ -11,9 +11,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $todayDate = now()->toDateString();
+
         $totalProduk = Product::count();
-        $totalTransaksiHariIni = Penjualan::whereDate('created_at', today())->count();
-        $totalOmsetHariIni = Penjualan::whereDate('created_at', today())->sum('total_harga');
+        $totalTransaksiHariIni = Penjualan::whereDate('created_at', $todayDate)->count();
+        $totalOmsetHariIni = Penjualan::whereDate('created_at', $todayDate)->sum('total_harga');
+        
         $totalKasir = User::whereHas('role', function ($query) {
             $query->where('name', 'kasir');
         })->count();

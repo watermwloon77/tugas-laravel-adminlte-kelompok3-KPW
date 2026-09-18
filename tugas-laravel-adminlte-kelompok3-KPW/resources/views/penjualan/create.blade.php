@@ -6,25 +6,11 @@
 <div class="row">
     <!-- Form Tambah Item Ke Keranjang -->
     <div class="col-md-5">
-        <div class="card card-warning card-outline">
+        <div class="card card-primary shadow-sm">
             <div class="card-header">
                 <h5 class="card-title mb-0 fw-bold"><i class="fa-solid fa-cart-plus me-1"></i> Pilih Produk Buket</h5>
             </div>
             <div class="card-body">
-                @if(session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show">
-                        {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                @endif
-
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show">
-                        <i class="fa-solid fa-circle-check me-1"></i> {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                @endif
-
                 <div class="mb-3">
                     <label class="form-label fw-bold">Pilih Produk</label>
                     <select id="select_product" class="form-select">
@@ -45,7 +31,7 @@
                     <input type="number" id="input_qty" class="form-control" value="1" min="1">
                 </div>
 
-                <button type="button" id="btn_tambah" class="btn btn-warning w-100 fw-bold">
+                <button type="button" id="btn_tambah" class="btn btn-primary w-100 fw-bold">
                     <i class="fa-solid fa-plus me-1"></i> Tambah Ke Keranjang
                 </button>
             </div>
@@ -56,15 +42,18 @@
     <div class="col-md-7">
         <form action="{{ route('penjualan.store') }}" method="POST">
             @csrf
-            <div class="card card-dark">
-                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <div class="card card-primary shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0 fw-bold"><i class="fa-solid fa-receipt me-1"></i> Detail Nota: {{ $noNota }}</h5>
-                    <input type="hidden" name="no_nota" value="{{ $noNota }}">
+                    <div>
+                        <input type="hidden" name="no_nota" value="{{ $noNota }}">
+                        <input type="hidden" name="total_harga" id="hidden_total" value="0">
+                    </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped mb-0" id="table_cart">
-                            <thead class="table-warning">
+                            <thead class="table-dark">
                                 <tr>
                                     <th>Produk</th>
                                     <th>Harga</th>
@@ -81,7 +70,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="card-footer bg-light">
+                <div class="card-footer">
                     <div class="row mb-2">
                         <div class="col-6 fw-bold fs-5">Total Harga:</div>
                         <div class="col-6 text-end fw-bold fs-4 text-success" id="text_total">Rp 0</div>
@@ -176,6 +165,7 @@
                             ${item.nama}
                             <input type="hidden" name="cart[${index}][product_id]" value="${item.product_id}">
                             <input type="hidden" name="cart[${index}][qty]" value="${item.qty}">
+                            <input type="hidden" name="cart[${index}][harga]" value="${item.harga}">
                         </td>
                         <td>Rp ${item.harga.toLocaleString('id-ID')}</td>
                         <td>${item.qty}</td>
@@ -192,6 +182,7 @@
         }
 
         document.getElementById('text_total').innerText = 'Rp ' + grandTotal.toLocaleString('id-ID');
+        document.getElementById('hidden_total').value = grandTotal;
         calculateChange();
     }
 
