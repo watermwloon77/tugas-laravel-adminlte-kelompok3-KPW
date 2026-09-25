@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Category;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')->get();
+       $categories = Category::all();
         return view('category.index', compact('categories'));
     }
 
@@ -27,20 +28,16 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
         // 1. Validasi Input
-    $request->validate([
-        'nama' => 'required|min:5',
-    ]);
+   // Data sudah otomatis tervalidasi oleh StoreCategoryRequest
+        Category::create($request->validated());
 
-    // 2. Query Simpan Data ke Database
-    DB::table('categories')->insert([
-        'nama' => $request['nama'],
-    ]);
+        return redirect()->route('category.index')
+                         ->with('success', 'Data Telah Ditambahkan!');
 
-    // 3. Redirect Kembali ke Halaman Index
-    return redirect()->route('category.index')->with(['success' => 'Data Telah Ditambahkan']);
+    
     }
 
     /**
@@ -48,7 +45,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        $category = DB::table('categories')->where('id', $id)->first();
+       $category = Category::findOrFail($id);
         return view('category.show', compact('category'));
     }
 
@@ -57,22 +54,24 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = DB::table('categories')->where('id', $id)->first();
+       $category = Category::findOrFail($id);
         return view('category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreCategoryRequest $request, string $id)
     {
-        $request->validate([
-        'nama' => 'required|min:5',
-    ]);
+        $category = Category::findOrFail($id);
 
-    DB::table('categories')->where('id', $id)->update([
-        'nama' => $request['nama'],
-    ]);
+        // Update data dengan yang sudah lolos validasi
+        $category->update($request->validated());
+
+        return redirect()->route('category.index')
+                         ->with('success', 'Data Kategori Berhasil Diperbarui!');
+
+   
 
     return redirect()->route('category.index')->with(['success' => 'Data Kategori Berhasil Diperbarui!']);
     }
@@ -82,7 +81,10 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('categories')->where('id', $id)->delete();
-        return redirect()->route('category.index')->with(['success' => 'Data Kategori Berhasil Dihapus!']);
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('category.index')
+                         ->with('success', 'Data Kategori Berhasil Dihapus!');
     }
 }

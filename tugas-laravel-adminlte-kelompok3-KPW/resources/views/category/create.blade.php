@@ -14,7 +14,7 @@
             @csrf
             <div class="mb-3">
                 <label for="nama" class="form-label fw-bold">Nama Kategori</label>
-                <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" value="{{ old('nama') }}" placeholder="Contoh: Buket Uang">
+                <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama', $category->nama ?? '') }}" placeholder="Masukkan nama kategori" required>
                 @error('nama')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
