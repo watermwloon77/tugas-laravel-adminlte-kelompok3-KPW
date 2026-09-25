@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -28,20 +29,12 @@ class ProductController extends Controller
         return view('products.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         $this->authorizeManage();
 
-        $request->validate([
-            'kode_produk' => 'required|unique:products,kode_produk',
-            'nama_produk' => 'required',
-            'category_id' => 'required',
-            'harga_beli'  => 'required|numeric',
-            'harga_jual'  => 'required|numeric',
-            'stok'        => 'required|integer',
-        ]);
-
-        Product::create($request->all());
+        // Menggunakan data yang sudah tervalidasi oleh StoreProductRequest
+        Product::create($request->validated());
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
     }
@@ -53,20 +46,12 @@ class ProductController extends Controller
         return view('products.edit', compact('product', 'categories'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         $this->authorizeManage();
 
-        $request->validate([
-            'kode_produk' => 'required|unique:products,kode_produk,' . $product->id,
-            'nama_produk' => 'required',
-            'category_id' => 'required',
-            'harga_beli'  => 'required|numeric',
-            'harga_jual'  => 'required|numeric',
-            'stok'        => 'required|integer',
-        ]);
-
-        $product->update($request->all());
+        // Menggunakan data yang sudah tervalidasi oleh UpdateProductRequest
+        $product->update($request->validated());
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui!');
     }
@@ -75,6 +60,7 @@ class ProductController extends Controller
     {
         $this->authorizeManage();
         $product->delete();
+
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus!');
     }
 }
