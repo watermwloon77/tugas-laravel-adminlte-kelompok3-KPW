@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -21,21 +22,15 @@ class UserController extends Controller
         return view('user.create', compact('roles'));
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'role_id' => 'required'
-        ]);
+        // Mengambil data yang sudah lolos validasi
+        $validatedData = $request->validated();
+        
+        // Enkripsi password sebelum disimpan
+        $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role_id' => $request->role_id,
-        ]);
+        User::create($validatedData);
 
         return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan!');
     }
@@ -46,25 +41,19 @@ class UserController extends Controller
         return view('user.edit', compact('user', 'roles'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-            'role_id' => 'required'
-        ]);
+        $validatedData = $request->validated();
 
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'role_id' => $request->role_id,
-        ];
-
+        // Jika input password diisi, enkripsi password baru
         if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
+            $validatedData['password'] = Hash::make($request->password);
+        } else {
+            // Jika kosong, hapus key password dari array agar password lama tidak terhapus
+            unset($validatedData['password']);
         }
 
-        $user->update($data);
+        $user->update($validatedData);
 
         return redirect()->route('users.index')->with('success', 'Data user berhasil diperbarui!');
     }
