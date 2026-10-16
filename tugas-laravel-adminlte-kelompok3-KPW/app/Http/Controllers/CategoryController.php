@@ -61,7 +61,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreCategoryRequest $request, string $id)
+    public function update(UpdateCategoryRequest $request, string $id)
     {
         $category = Category::findOrFail($id);
 
@@ -70,10 +70,6 @@ class CategoryController extends Controller
 
         return redirect()->route('category.index')
                          ->with('success', 'Data Kategori Berhasil Diperbarui!');
-
-   
-
-    return redirect()->route('category.index')->with(['success' => 'Data Kategori Berhasil Diperbarui!']);
     }
 
     /**
